@@ -116,7 +116,8 @@ public class ACRA {
     public static void init(Application app) {
 
         if (mApplication != null) {
-            throw new IllegalStateException("ACRA#init called more than once");
+            log.w(LOG_TAG, "ACRA#init called more than once. Won't do anything more.");
+            return;
         }
 
         mApplication = app;
@@ -136,8 +137,7 @@ public class ACRA {
 
             // Initialize ErrorReporter with all required data
             final boolean enableAcra = !shouldDisableACRA(prefs);
-            final ErrorReporter errorReporter = new ErrorReporter(mApplication.getApplicationContext(), prefs,
-                    enableAcra);
+            final ErrorReporter errorReporter = new ErrorReporter(mApplication, prefs, enableAcra);
 
             // Append ReportSenders.
             errorReporter.setDefaultReportSenders();
